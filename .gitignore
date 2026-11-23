@@ -1,9 +1,8 @@
-# Compiled executables & libraries
-*.exe
+# Compiled test executable and tools
+test_ds.exe
+tools/*.exe
 *.o
 *.obj
-test_ds.exe
-GuardEscape.exe
 
 # OS and Editor files
 .vscode/

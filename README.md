@@ -1,121 +1,136 @@
-# Guard Escape
+# Guard Escape 3D 🎮
 
-A 3D stealth and combat maze game written in **C** with the raylib graphics library, designed for the DSA Experiential Learning project.
+[![C99](https://img.shields.io/badge/Language-C99-00599C.svg)](https://en.wikipedia.org/wiki/C99)
+[![Raylib](https://img.shields.io/badge/Graphics-Raylib_5.0-white.svg)](https://www.raylib.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 
-The game rules run on a high-performance 2D grid while `render3d.c` transforms that matrix into an immersive 3D college corridor at night.
+A 3D stealth maze escape game written in **C** using the **Raylib** engine, engineered for the **Data Structures & Algorithms (DSA) Experiential Learning (PBL)** project at RVCE.
 
----
-
-## What's New in this Combined Version
-
-This build unifies the best features from both development branches into one cohesive game:
-
-1. **Difficulty System (from V2):**
-   - **EASY:** 5 lives, fewer/slower guards, 6s stun, 3 darts / 1 flash grenade, 4 pickups/level, ×0.75 score multiplier.
-   - **MEDIUM:** 3 lives, classic balanced guards, 4.5s stun, 2 darts / 1 flash grenade, 3 pickups/level, ×1.00 score multiplier.
-   - **HARD:** 2 lives, more and faster guards with keen hearing, 3s stun, 1 dart / 0 flash grenades, 2 pickups/level, ×1.50 score multiplier.
-   - Select difficulty with **LEFT/RIGHT** or **1 / 2 / 3** on the main menu.
-   - Difficulty is tracked and persisted in the Binary Search Tree leaderboard.
-
-2. **Handcrafted Maps & Tour Mode (from V2):**
-   - **Random Maze:** Carved uniquely each level with randomized DFS and backtracking stack.
-   - **Classrooms:** Rows of classrooms connected by dual long corridors.
-   - **Library:** Long shelves and tall stacks breaking line-of-sight.
-   - **Courtyard:** Two ring corridors surrounding an open courtyard.
-   - **Offices:** Perimeter meeting rooms and inner cubicle maze.
-   - **Tour:** Plays through each map in turn, level by level!
-   - Select map with **UP/DOWN** on the menu; 3D background live-previews the chosen map.
-
-3. **Weapons & Floor Pickups (from V2):**
-   - **Stun Dart (`Z` / `1`):** Fires a projectile straight ahead (16 tiles/sec, range 9 tiles) that hits and stuns guards.
-   - **Flash Grenade (`E` / `G` / `2`):** Detonates with a concussive blast, stunning every guard within 4 BFS steps (works around corners!).
-   - **Guard Stun FX:** Stunned guards freeze in place, torch turns off, electric rings and stars spin around them, with a floating `zZ <timer>` countdown.
-   - **Floor Pickups:** Blue ammo crates (+2 darts) and green grenades (+1 flash) bob and rotate on the floor and show on the minimap.
-
-4. **Stealth Mechanics & Sanctuary Hiding (from V1):**
-   - **Lockers (`SPACE` when near locker):** Emerald stealth lockers with neon status indicators. Hiding inside makes you 100% invisible and undetectable to patrolling or chasing guards.
-   - **Distraction Coins (`Q`):** Toss a coin down corridors. The metallic clink alerts nearby patrolling guards to inspect the landing site.
-   - **Sprint & Stamina (`Left Shift`):** Boost to 1.45× speed at the cost of stamina and louder footsteps.
-
-5. **Pathfinding Dual-Mode & Viva Comparison (from V1):**
-   - Toggle live with **`X`**: Compare **A\* Search** (using an explicit Binary Min-Heap Priority Queue and Manhattan heuristic) vs **BFS** (Circular Queue).
-   - Real-time performance profiling shown on the footer (nodes visited, heap peak, runtime).
-
-6. **Procedural Audio Engine (from V1 + V2 additions):**
-   - Procedural sound synthesis in memory with zero external sound files: ambient menu pads, footsteps, heartbeats, danger drone, locker creaks, coin clinks, weapon fires, electric zaps, flash bangs, and pickup chimes.
-
-7. **Retargeted 3D Animations & Visuals:**
-   - Smooth in-place character animations (root horizontal motion stripped to eliminate drifting/clipping into walls).
-   - 4 Camera views (`C`): Third-Person, Chase, First-Person, Overview.
-   - Borderless Fullscreen toggle with `F11` or `Alt+Enter`.
+The game transforms a dynamic 2D discrete grid into a fully rendered 3D college corridor at night, featuring intelligent AI guards powered by live graph search, procedural audio synthesis, and interactive visual data structure inspections.
 
 ---
 
-## Running the Project
+## 🚀 Quick Start (Play on Any Windows Laptop)
 
-- **Play:** Run `GuardEscape.exe` or `build.bat run`
-- **Recompile:** Run `build.bat`
-- **Run DSA Unit Tests (30 tests):** Run `build.bat test`
+No compiler or dependencies required! The game is pre-compiled and statically linked.
 
-Requirements: GCC (MinGW-w64 on Windows). Raylib is pre-bundled in `vendor/raylib`.
+1. **Download this repository:**
+   - Click the green **Code** button at the top right, then click **Download ZIP**.
+   - Extract the ZIP folder to your computer.
+   *(Or run `git clone https://github.com/ullash-naik/guard-escape.git`)*
+2. **Launch the game:**
+   - Double-click **`play.bat`** (or **`GuardEscape.exe`**).
+   - Enjoy the game!
 
 ---
 
-## Controls
+## 🕹️ Game Controls
 
 | Key | Action |
 |---|---|
-| **WASD / Arrow Keys** | Move (First person: W/S forward/back, A/D turn 90°) |
-| **Left Shift** | Sprint boost (1.45× speed, consumes stamina, louder footsteps) |
-| **Z / 1** | Fire Stun Dart (flies straight, freezes guard) |
-| **E / G / 2** | Throw Flash Grenade (AOE 4-step stun) |
-| **Q** | Toss Distraction Coin (lures guards) |
-| **SPACE** | Hide in Locker / Exit Locker (stealth sanctuary) |
-| **M / V** | Toggle AI Map & BFS Queue Inspector dashboard |
-| **B** | Replay BFS Wavefront expansion animation |
-| **X** | Toggle AI Pathfinding: A* (Min-Heap Priority Queue) vs BFS (Circular Queue) |
-| **C** | Cycle Camera: Third Person / Chase / First Person / Overview |
-| **H** | Help & DSA System Architecture screen |
+| **WASD** / **Arrow Keys** | Walk / Navigate corridors |
+| **Left Shift** | **Sprint** (1.45× speed, consumes stamina, louder footsteps) |
+| **E** / **Q** | **Toss Distraction Coin** (lures nearby patrolling guards with audio clink) |
+| **SPACE** | **Hide / Exit Locker** (100% invisible sanctuary from guards) |
+| **C** | Cycle 3D Camera: *Third-Person* ➔ *Chase* ➔ *First-Person* ➔ *Overview* |
+| **X** | **Toggle AI Pathfinding:** A* (Binary Min-Heap) vs BFS (Circular Queue) |
+| **V** | Toggle BFS Distance Overlay & live guard path tracing |
+| **B** | Replay animated BFS Wavefront expansion |
+| **F** | Toggle corridor lantern & ambient lighting |
 | **P** | Pause game |
-| **ESC** | Open Menu / Pause (with Continue Run) |
-| **F11 / Alt+Enter** | Toggle Borderless Fullscreen |
-| **ESC** | Return to Menu / Quit |
+| **L** | Open Interactive BST Leaderboard & Architecture Visualizer |
+| **H** | Help & In-game controls guide |
+| **F11** / **Alt+Enter** | Toggle Borderless Fullscreen |
+| **ESC** | Main Menu / Pause |
 
 ---
 
-## Data Structures & Algorithms Used
+## 🎯 Gameplay & Objective
 
-| Data Structure / Algorithm | File | Where It Appears in the Game |
-|---|---|---|
-| **2D Array** | `src/maze.c` | `grid[21][31]` stores the maze; `dist[21][31]` stores BFS distances |
-| **Stack (Array-based)** | `src/maze.c` | Generates procedural mazes each level (randomized DFS with backtracking) |
-| **Circular Queue** | `src/queue.c` | BFS frontier queue; FIFO on-screen message logging system |
-| **Binary Min-Heap Priority Queue** | `src/astar.c` | Priority queue keyed by $f(n) = g(n) + h(n)$ for live $A^*$ pathfinding |
-| **Breadth-First Search (Graph)** | `src/bfs.c` | Shortest path distance field from player; flash grenade blast routing |
-| **Binary Search Tree** | `src/bst.c` | High-score leaderboard keyed by score with difficulty tier tracking; visual topology rendered on leaderboard screen |
-| **File Persistence** | `src/bst.c` | BST saved in pre-order traversal to `leaderboard.txt` for identical tree reconstruction |
+1. **Find All Gold Keys:** Navigate the procedurally generated labyrinth to find all scattered keys. Keys are systematically distributed across different wings of the maze.
+2. **Evade Guard Patrols:** Guards project a visible 3D flashlight cone. Entering their line of sight triggers a high-speed chase accompanied by intense danger audio.
+3. **Use Stealth Sanctuaries:**
+   - **Lockers:** Distributed evenly across corridor rows with glowing green status indicators. Step in front and press `SPACE` to vanish completely from guard detection.
+   - **Distraction Coins:** Throwing a coin (`E`/`Q`) produces a metallic clink that causes patrolling guards to investigate the landing site.
+4. **Reach the Exit:** Once all keys are collected, the exit gate opens with a glowing green beacon. Reach it to clear the level!
 
 ---
 
-## Project Structure
+## 🧠 Data Structures & Algorithms Used (College PBL / Viva)
 
+Every core gameplay system is powered by classic computer science data structures implemented from scratch in pure C:
+
+| Data Structure / Algorithm | Source File | Real-world Purpose in the Game | Time / Space Complexity |
+|---|---|---|---|
+| **2D Array Matrix** | `src/maze.c` | Stores maze occupancy (`grid[21][31]`) and distance fields (`dist[21][31]`) | $O(1)$ lookup, $O(W \times H)$ space |
+| **Stack (Array-based)** | `src/maze.c` | Procedural maze generation via randomized Depth-First Search (DFS) with backtracking | $O(V + E)$ generation time |
+| **Circular Queue** | `src/queue.c` | FIFO frontier queue for BFS traversal; ring-buffer for the on-screen HUD combat event log | $O(1)$ push / pop, no reallocations |
+| **Breadth-First Search (BFS)** | `src/bfs.c` | Computes exact shortest distance fields from player to all accessible tiles for guard pathfinding | $O(V + E)$ optimal shortest path |
+| **A\* Pathfinding** | `src/astar.c` | Heuristic goal-directed pathfinding using Manhattan distance $f(n) = g(n) + h(n)$ | Fast goal search, heuristic pruning |
+| **Binary Min-Heap** | `src/astar.c` | Priority queue managing active open-set frontier nodes for the $A^*$ search engine | $O(\log N)$ insert / extract-min |
+| **Binary Search Tree (BST)** | `src/bst.c` | Manages the dynamic high-score leaderboard keyed by score; visualizes live tree topology | $O(\log N)$ average insertion / search |
+| **Reverse In-Order Traversal** | `src/bst.c` | Recursively traverses the BST (Right ➔ Root ➔ Left) to generate descending rank orders | $O(N)$ linear-time ranking |
+| **Pre-Order File Serialization** | `src/bst.c` | Saves the BST structure to `leaderboard.txt` and reconstructs an identical tree on startup | $O(N)$ persistence |
+
+---
+
+## 🛠️ Building from Source (For Developers)
+
+If you want to modify the source code or run the DSA unit tests:
+
+### Prerequisites
+- Windows 10 / 11
+- GCC with MinGW-w64 (Raylib 5.0 headers and pre-built static libraries are bundled in `vendor/raylib/`)
+
+### Compilation
+Open PowerShell or CMD in the project directory:
+
+```bat
+:: Build the game executable (GuardEscape.exe)
+build.bat
+
+:: Build and immediately launch the game
+build.bat run
+
+:: Run the automated DSA Unit Test Suite (24 test assertions)
+build.bat test
 ```
+
+---
+
+## 📁 Repository Structure
+
+```text
 guard-escape/
-├── GuardEscape.exe     Compiled standalone executable
-├── build.bat           Build / run / test script
-├── src/
-│   ├── game.h          Shared game state, difficulty configs, weapons & types
-│   ├── main.c          Game loop, weapon mechanics, guard AI, UI menus & HUD
-│   ├── render3d.c      3D world renderer: lighting, props, stun FX, pickups, cameras
-│   ├── retarget.c      Mixamo skeletal retargeting & in-place motion filtering
-│   ├── maze.c/.h       2D array generator, stack DFS, and 4 preset maps
-│   ├── queue.c/.h      Circular queue implementation
-│   ├── bfs.c/.h        Breadth-first search shortest path solver
-│   ├── astar.c/.h      A* search with binary min-heap priority queue
-│   ├── audio.c/.h      Procedural sound synthesizer (zero audio asset dependencies)
-│   └── bst.c/.h        Leaderboard binary search tree with pre-order file I/O
-├── assets/             3D models (.glb) and PBR textures (.png)
-├── tests/test_ds.c     30 automated console tests for all data structures
-├── tools/              Mixamo import batch scripts and probe utilities
-└── vendor/raylib/      Raylib C headers and static libraries
+├── assets/                  # 3D character models (.glb) and PBR textures
+│   ├── characters/          # Mixamo student, guard, and retargeted animation clips
+│   └── textures/            # Terrazzo tiles, walls, and PBR normal maps
+├── src/                     # Pure C source code
+│   ├── astar.c / astar.h    # A* search with Binary Min-Heap Priority Queue
+│   ├── audio.c / audio.h    # Procedural sound synthesis engine
+│   ├── bfs.c   / bfs.h      # Graph Breadth-First Search distance fields
+│   ├── bst.c   / bst.h      # Binary Search Tree high score ranking engine
+│   ├── game.h               # Global game state and configuration
+│   ├── main.c               # Game loop, input handling, HUD, and UI screens
+│   ├── maze.c  / maze.h     # Randomized DFS maze generator
+│   ├── queue.c / queue.h    # Circular queue implementation
+│   ├── render3d.c           # Raylib 3D rendering pipeline and shaders
+│   └── retarget.c           # Skeletal animation retargeting system
+├── tests/
+│   └── test_ds.c            # Comprehensive unit tests for Queue, BFS, BST, and A*
+├── vendor/raylib/           # Pre-bundled Raylib 5.0 headers and Windows static library
+├── build.bat                # Build script for Windows
+├── play.bat                 # One-click game launcher for end users
+├── GuardEscape.exe          # Ready-to-play pre-compiled game executable
+└── leaderboard.txt          # Persistent BST serialized leaderboard data
 ```
+
+---
+
+## 🏆 Project Credits
+
+- **Developer:** Ullash Naik ([@ullash-naik](https://github.com/ullash-naik))
+- **Institution:** RV College of Engineering (RVCE), Department of Computer Science & Engineering
+- **Subject:** Data Structures & Algorithms (DSA in C) Experiential Learning Project
+- **Graphics Engine:** [Raylib](https://www.raylib.com/) by Ramon Santamaria (@raysan5)
