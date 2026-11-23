@@ -1,0 +1,6 @@
+PLAYER 0 1 1
+PLAYER 100 1 1
+z 100 1 1
+ash 300 1 1
+PLAYER 105 1 0
+ullash 1490 2 1
